@@ -20,3 +20,5 @@ This is a laravel application that shows a calendar for all employee cake days.
 ### Formatting
 - after each code change run npm run format 
 - after each code change run npm run lint
+
+***IMPORTANT***: all new php files should have declare strict types true
