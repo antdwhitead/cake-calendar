@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('cake_days', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->date('date_of_birth');
+            $table->date('date');
+            $table->string('cake_type');
+            $table->json('names');
             $table->timestamps();
         });
-
     }
 
     /**
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('cake_days');
     }
 };
