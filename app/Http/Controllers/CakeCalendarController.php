@@ -18,7 +18,7 @@ class CakeCalendarController extends Controller
     public function index(Request $request): Response
     {
         $year = $request->integer('year', now()->year);
-        
+
         $cakeService = new CakeDayService($year);
         $cakeDays = $cakeService->getCakeDaysForYear();
 

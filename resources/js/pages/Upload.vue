@@ -12,7 +12,7 @@
             </svg>
             Back to Calendar
           </Link>
-          
+
           <h1 class="text-3xl font-bold text-gray-900 dark:text-white">
             Upload Employee Data
           </h1>
@@ -48,7 +48,7 @@
                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Employee Data File
                 </label>
-                
+
                 <FileUpload
                   ref="fileUpload"
                   name="file"
@@ -157,9 +157,9 @@ const onFileRemove = () => {
 
 const submitForm = () => {
   if (!form.file) return
-  
+
   processing.value = true
-  
+
   form.post(route('upload.store'), {
     onFinish: () => {
       processing.value = false

@@ -10,6 +10,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 use Spatie\SimpleExcel\SimpleExcelReader;
 
 class CakeDayService
@@ -41,10 +42,29 @@ class CakeDayService
 
     public function processFileUpload(UploadedFile $file): void
     {
-        $this->users = $this->parseFile($file);
-        $this->storeUsers();
-        $this->calculateCakeDays();
-        $this->storeCakeDays();
+        try {
+            Log::info('Processing file upload', [
+                'filename' => $file->getClientOriginalName(),
+                'year' => $this->year,
+            ]);
+
+            $this->users = $this->parseFile($file);
+            $this->storeUsers();
+            $this->calculateCakeDays();
+            $this->storeCakeDays();
+
+            Log::info('File processed successfully', [
+                'filename' => $file->getClientOriginalName(),
+                'year' => $this->year,
+            ]);
+        } catch (\Exception $e) {
+            Log::error('File processing failed', [
+                'filename' => $file->getClientOriginalName(),
+                'year' => $this->year,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+        }
     }
 
     /**
@@ -63,7 +83,17 @@ class CakeDayService
     {
         $this->validateFile($file);
 
-        return SimpleExcelReader::create($file->getRealPath())
+        $extension = $file->getClientOriginalExtension();
+        $filePath = $file->getRealPath();
+
+        // Handle different file types explicitly
+        $reader = match ($extension) {
+            'csv', 'txt' => SimpleExcelReader::create($filePath, 'csv'),
+            'xlsx' => SimpleExcelReader::create($filePath, 'xlsx'),
+            default => SimpleExcelReader::create($filePath),
+        };
+
+        return $reader
             ->noHeaderRow()
             ->getRows()
             ->map(function (array $row) {

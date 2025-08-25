@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FileUploadRequest;
 use App\Services\CakeDayService;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -22,30 +21,18 @@ class FileUploadController extends Controller
         return Inertia::render('Upload');
     }
 
-    public function store(Request $request): RedirectResponse
+    /**
+     * @throws \Exception
+     */
+    public function store(FileUploadRequest $request): RedirectResponse
     {
-        $request->validate([
-            'file' => ['required', 'file', 'mimes:txt,csv,xlsx', 'max:2048'],
-            'year' => ['nullable', 'integer', 'min:2000', 'max:2100'],
-        ]);
+        $year = $request->validate('year') ?? now()->year;
 
-        try {
-            $year = $request->integer('year', now()->year);
-            $service = new CakeDayService($year);
-            
-            $service->processFileUpload($request->file('file'));
+        $service = new CakeDayService($year);
+        $service->processFileUpload($request->validated('file'));
 
-            return redirect()->route('home', ['year' => $year])
-                ->with('success', 'File uploaded and processed successfully!');
+        return redirect()->route('home', ['year' => $year])
+            ->with('success', 'File uploaded and processed successfully!');
 
-        } catch (\InvalidArgumentException $e) {
-            throw ValidationException::withMessages([
-                'file' => [$e->getMessage()],
-            ]);
-        } catch (\Exception $e) {
-            throw ValidationException::withMessages([
-                'file' => ['An error occurred while processing the file.'],
-            ]);
-        }
     }
 }
