@@ -4,6 +4,7 @@ import { createInertiaApp } from '@inertiajs/vue3';
 import Aura from '@primeuix/themes/aura';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import PrimeVue from 'primevue/config';
+import { setupCalendar } from 'v-calendar';
 import type { DefineComponent } from 'vue';
 import { createApp, h } from 'vue';
 import { ZiggyVue } from 'ziggy-js';
@@ -23,7 +24,7 @@ createInertiaApp({
                     preset: Aura,
                 },
             })
-
+            .use(setupCalendar, {})
             .mount(el);
     },
     progress: {
