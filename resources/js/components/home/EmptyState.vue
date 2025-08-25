@@ -1,10 +1,5 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-
-// Route helper function
-const route = (name: string, params?: any) => {
-    return window.route(name, params);
-};
 </script>
 
 <template>

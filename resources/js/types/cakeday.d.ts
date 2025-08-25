@@ -3,4 +3,4 @@ export type CakeDay = {
     date: string;
     cakeType: 'small' | 'large';
     names: string[];
-}
+};

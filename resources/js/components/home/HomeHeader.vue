@@ -10,11 +10,6 @@ const props = defineProps<Props>();
 
 const selectedYear = ref(props.currentYear);
 
-// Route helper function
-const route = (name: string, params?: any) => {
-    return window.route(name, params);
-};
-
 const availableYears = computed(() => {
     const currentYear = new Date().getFullYear();
     const years = [];
