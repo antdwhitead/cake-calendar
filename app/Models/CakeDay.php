@@ -4,22 +4,26 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\CakeType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class CakeDay extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'date_of_birth',
+        'date',
+        'cake_type',
+        'names',
     ];
 
     protected function casts(): array
     {
         return [
-            'date_of_birth' => 'date',
+            'date' => 'date',
+            'cake_type' => CakeType::class,
+            'names' => 'array',
         ];
     }
 }
