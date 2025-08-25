@@ -1,12 +1,6 @@
 <script setup lang="ts">
+import type { CakeDay } from '@/types/cakeday';
 import { computed } from 'vue';
-
-interface CakeDay {
-    id: number;
-    date: string;
-    cakeType: 'small' | 'large';
-    names: string[];
-}
 
 interface Props {
     cakeDays: CakeDay[];

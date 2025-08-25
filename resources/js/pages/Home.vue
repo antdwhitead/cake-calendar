@@ -2,13 +2,7 @@
 import CakeDaysList from '@/components/home/CakeDaysList.vue';
 import EmptyState from '@/components/home/EmptyState.vue';
 import HomeHeader from '@/components/home/HomeHeader.vue';
-
-interface CakeDay {
-    id: number;
-    date: string;
-    cakeType: 'small' | 'large';
-    names: string[];
-}
+import type { CakeDay } from '@/types/cakeday';
 
 interface Props {
     cakeDays: CakeDay[];
