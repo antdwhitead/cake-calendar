@@ -1,6 +1,21 @@
 <template>
   <div class="min-h-screen bg-gray-50 dark:bg-gray-900">
     <div class="container mx-auto px-4 py-8">
+      <!-- Success Message -->
+      <div 
+        v-if="$page.props.flash?.success" 
+        class="mb-6 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4"
+      >
+        <div class="flex items-center">
+          <svg class="w-5 h-5 text-green-600 dark:text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <p class="text-green-700 dark:text-green-300">
+            {{ $page.props.flash.success }}
+          </p>
+        </div>
+      </div>
+
       <div class="flex justify-between items-center mb-8">
         <div>
           <h1 class="text-3xl font-bold text-gray-900 dark:text-white">
