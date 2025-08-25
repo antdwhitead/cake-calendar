@@ -22,3 +22,7 @@ This is a laravel application that shows a calendar for all employee cake days.
 - after each code change run npm run type-check
 
 ***IMPORTANT***: all new php files should have declare strict types true
+
+
+# Testing
+- this app uses Pest for testing NOT phpunit

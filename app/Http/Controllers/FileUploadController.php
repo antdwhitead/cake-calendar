@@ -28,7 +28,7 @@ class FileUploadController extends Controller
     {
         $year = $request->validated('year') ?? now()->year;
 
-        $service = new CakeDayService((int)$year);
+        $service = new CakeDayService((int) $year);
         $service->processFileUpload($request->validated('file'));
 
         return redirect()->route('home', ['year' => $year])

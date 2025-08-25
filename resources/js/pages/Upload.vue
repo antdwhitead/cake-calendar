@@ -63,11 +63,8 @@ const submitForm = () => {
                     <form @submit.prevent="submitForm" enctype="multipart/form-data">
                         <div class="space-y-6">
                             <YearSelector v-model="form.year" />
-
                             <FileUploadArea :file="form.file" :errors="errors" @select="onFileSelect" @remove="onFileRemove" />
-
                             <FileFormatInfo />
-
                             <SubmitButton :disabled="!form.file || processing" :processing="processing" />
                         </div>
                     </form>
