@@ -26,9 +26,9 @@ class FileUploadController extends Controller
      */
     public function store(FileUploadRequest $request): RedirectResponse
     {
-        $year = $request->validate('year') ?? now()->year;
+        $year = $request->validated('year') ?? now()->year;
 
-        $service = new CakeDayService($year);
+        $service = new CakeDayService((int)$year);
         $service->processFileUpload($request->validated('file'));
 
         return redirect()->route('home', ['year' => $year])
